@@ -1,21 +1,22 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import './Dashboard.css';
+import Total from './Total';
+import Last from './Last';
+import Panel from './Panel';
 
 function Dashboard(){
-    const [users, setUsers] = useState([]);
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState({});
-    const [productTotal, setProductTotal] = useState([]);
-    const [userTotal, setUserTotal] = useState([]);
-    const [categoryTotal, setCategoryTotal] = useState([]);
-    const [lastUser, setLastUser] = useState([]);
-    const [lastProduct, setLastProduct] = useState([]);
+    const [productTotal, setProductTotal] = useState(0);
+    const [userTotal, setUserTotal] = useState(0);
+    const [categoryTotal, setCategoryTotal] = useState(0);
+    const [lastUser, setLastUser] = useState({});
+    const [lastProduct, setLastProduct] = useState({});
 
     const getUsersData = async function(){
         let response = await fetch('http://localhost:4000/api/users');
         let data = await response.json();
-        setUsers(data.users);
         setUserTotal(data.count);
     }
 
@@ -50,44 +51,43 @@ function Dashboard(){
     return(
         <main className='principal'>
             <div className='left-panels'>
-                <div className='panel'>
-                    <div className='total'>
-                        Total de productos: {productTotal}
-                    </div>
-                    <div className='total'>
-                        Total de usuarios: {userTotal}
-                    </div>
-                    <div className='total'>
-                        Total de categorías: {categoryTotal}
-                    </div>
-                </div>
-                <div className='panel'>
-                    Último producto creado: {lastProduct.name}
-                </div>
-                <div className='panel'>
-                    Último usuario creado: {lastUser.name}
-                </div>
+                {/* Panel de total de campos */}
+                <Panel>
+                    <Total field='productos' total={productTotal}/>
+                    <Total field='usuarios' total={userTotal}/>
+                    <Total field='categorías' total={categoryTotal}/>
+                </Panel>
+
+                {/* Panel de último productos creado */}
+                <Panel>
+                    <Last field='producto' item={lastProduct}/>
+                </Panel>
+
+                {/* Panel de último usuario creado */}
+                <Panel>
+                    <Last field='usuario' item={lastUser}/>
+                </Panel>
             </div>
-            <div className='panel'>
+
+            {/* Panel de lista de productos */}
+            <Panel>
                 <h3>Productos</h3>
                 <ul>
-                    {
-                        products.map((product, i) => {
-                            return <li key={i}>{product.name}</li>
-                        })
-                    }
+                {
+                    products.map((product, i) => <li key={i}>{product.name}</li>)
+                }
                 </ul>
-            </div>
-            <div className='panel'>
+            </Panel>
+
+            {/* Panel de lista de categorías */}
+            <Panel>
                 <h3>Categorías</h3>
                 <ul>
-                    {
-                        Object.keys(categories).map((key, i) => {
-                            return <li key={i}>{key}: {categories[key]}</li>
-                        })
-                    }
+                {
+                    Object.keys(categories).map((key, i) => <li key={i}>{key}: {categories[key]}</li>)
+                }
                 </ul>
-            </div>
+            </Panel>
         </main>
     )
 }

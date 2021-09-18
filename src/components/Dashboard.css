@@ -2,3 +2,9 @@
     display: flex;
     flex-direction: row;
 }
+
+.panel{
+    background-color:cadetblue;
+    margin: 15px;
+    padding: 10px;
+}
