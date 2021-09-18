@@ -30,15 +30,23 @@ function Dashboard(){
     }
 
     const getLastUser = async function(){
-        let response = await fetch('http://localhost:4000/api/users?order=DESC');
+        let usersList = await fetch('http://localhost:4000/api/users?order=ASC');
+        let usersListJSON = await usersList.json();
+        let response = await fetch(usersListJSON.users[0].detail);
         let data = await response.json();
-        setLastUser(data.users[0]);
+        data = {
+            ...data,
+            name: data.first_name + ' ' + data.last_name
+        }
+        setLastUser(data);
     }
 
     const getLastProduct = async function(){
-        let response = await fetch('http://localhost:4000/api/products?order=DESC');
+        let productList = await fetch('http://localhost:4000/api/products?order=DESC');
+        let productListJSON = await productList.json();
+        let response = await fetch(productListJSON.products[6].detail);
         let data = await response.json();
-        setLastProduct(data.products[0]);
+        setLastProduct(data);
     }
 
     useEffect(() => {
@@ -50,7 +58,7 @@ function Dashboard(){
 
     return(
         <main className='principal'>
-            <div className='left-panels'>
+            <div className='left-panel'>
                 {/* Panel de total de campos */}
                 <Panel>
                     <Total field='productos' total={productTotal}/>
@@ -70,21 +78,21 @@ function Dashboard(){
             </div>
 
             {/* Panel de lista de productos */}
-            <Panel>
+            <div className='panel panel-principal'>
                 <h3>Productos</h3>
                 <ul>
                 {
-                    products.map((product, i) => <li key={i}>{product.name}</li>)
+                    products.map((product, i) => <li key={i} className='product'><p>{product.id} - {product.name}</p></li>)
                 }
                 </ul>
-            </Panel>
+            </div>
 
             {/* Panel de lista de categorías */}
             <Panel>
                 <h3>Categorías</h3>
                 <ul>
                 {
-                    Object.keys(categories).map((key, i) => <li key={i}>{key}: {categories[key]}</li>)
+                    Object.keys(categories).map((key, i) => <li key={i} className='category'><h4>{key}:&nbsp;</h4> {categories[key]}</li>)
                 }
                 </ul>
             </Panel>

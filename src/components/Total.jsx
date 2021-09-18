@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 function Total(props){
     return(
         <div className='total'>
-            Total de {props.field}: {props.total}
+            <h4>Total de {props.field}:&nbsp;</h4>
+            <p>{props.total}</p>
         </div>
     )
 }
