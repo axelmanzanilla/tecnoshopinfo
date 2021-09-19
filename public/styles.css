@@ -10,3 +10,19 @@ body{
     height: 100vh;
     background-color:black;
 }
+
+.navbar{
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar a{
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 20px;
+}
