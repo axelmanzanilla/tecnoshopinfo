@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Ventas from './components/Ventas';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/index';
 import NuevoProducto from './components/NuevoProducto';
 
 ReactDOM.render(

@@ -1,10 +1,17 @@
-import React from "react";
+import React from 'react';
 import { useState, useEffect } from 'react';
+import Panel from './Panel';
+import './Ventas.css';
 
 function Ventas(){
     return(
         <main className='principal'>
-            Estas son las ventas uwu
+            <Panel>
+                <h3>Holap</h3>
+            </Panel>
+            <Panel>
+                <h3>Holap</h3>
+            </Panel>
         </main>
     )
 }
