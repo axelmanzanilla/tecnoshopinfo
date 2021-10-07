@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Div } from './TotalStyles';
 
 function Total(props){
     return(
-        <div className='total'>
+        <Div>
             <h4>Total de {props.field}:&nbsp;</h4>
             <p>{props.total}</p>
-        </div>
+        </Div>
     )
 }
 

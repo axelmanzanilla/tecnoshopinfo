@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 
-function NuevoProducto(){
+function NewProduct(){
     return(
         <main className='principal'>
             <form action="" className='panel'>
@@ -20,4 +20,4 @@ function NuevoProducto(){
     )
 }
 
-export default NuevoProducto
+export default NewProduct

@@ -6,23 +6,20 @@ body{
 #root{
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    background-color:black;
+    min-height: 100vh;
 }
 
-.navbar{
-    width: 100%;
-    min-height: 70px;
+main{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    flex-grow: 1;
+    background-color: #2b373d;
 }
 
-.navbar a{
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 20px;
+h3{
+    align-self: flex-start;
+}
+
+h3, h4, p{
+    margin: 0 0 10px 0;
 }

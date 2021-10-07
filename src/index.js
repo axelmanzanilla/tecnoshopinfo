@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Ventas from './components/Ventas';
-import Navbar from './components/Navbar/index';
-import NuevoProducto from './components/NuevoProducto';
+import Dashboard from './components/Dashboard/Dashboard';
+import Ventas from './components/Ventas/Ventas';
+import Navbar from './components/Navbar/Navbar';
+import NewProduct from './components/NewProduct/NewProduct';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +15,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path='/' component={Dashboard}/>
         <Route path='/ventas' component={Ventas}/>
-        <Route path='/nuevo-producto' component={NuevoProducto}/>
+        <Route path='/nuevo-producto' component={NewProduct}/>
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

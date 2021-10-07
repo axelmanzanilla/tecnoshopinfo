@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Div, Img } from './LastStyles';
 
 function Last(props){
     return(
-        <div className='last-item'>
+        <Div>
             <h3>Ultimo {props.field} creado:</h3>
             <p>{props.item.name}</p>
-            <img className='image' src={props.item.image}/>
-        </div>
+            <Img src={props.item.image}/>
+        </Div>
     )
 }
 
