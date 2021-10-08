@@ -4,15 +4,9 @@ import { Main, Form, Img, Section, Input, TextArea, Select, Button, FormBorrar, 
 
 function Product(props){
     const [product, setProduct] = useState();
+    const [categories, setCategories] = useState();
 
     const getProductData = async function(){
-        setProduct({
-            name: 'Audífonos Inalámbricos',
-            price: 199,
-            description: 'Estos son unos audifonos muy chidos, cómpralos uwu',
-            image: '/screen.png'
-        })
-
         try {
             let id = props.match.params.id;
             let response = await fetch(`http://tecnoshop2.herokuapp.com/api/products/${id}`);
@@ -23,12 +17,21 @@ function Product(props){
         }
     }
 
+    const getAllCategories = async function(){
+        try {
+            let response = await fetch('https://tecnoshop2.herokuapp.com/api/products');
+            let data = await response.json();
+            setCategories(data.countByCategory);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         getProductData();
-        console.log(product)
+        getAllCategories();
     }, []);
 
-    
     return(
         <Main>
             <Form method='POST'>
@@ -46,35 +49,41 @@ function Product(props){
                             {/*  NOMBRE  */}
                             <Section>
                                 <label htmlFor='name'>Nombre:</label>
-                                <Input name='name' type='text' value={product.name}/>
+                                <Input name='name' type='text' defaultValue={product.name}/>
                             </Section>
 
                             {/*  DESCRIPCIÓN  */}
                             <Section>
                                 <label htmlFor='description'>Descripción:</label>
-                                <TextArea name='description'>{product.description}</TextArea>
+                                <TextArea name='description' defaultValue={product.description}></TextArea>
                             </Section>
 
                             {/*  CATEGORÍA  */}
                             <Section>
                                 <label htmlFor="category">Categoria del producto:</label>
-                                <Select id="category" name="category">
-                                    <option value="<%= category.name %>">category.name</option>
-                                </Select>
+                                
+                                    {
+                                        !categories ? ( <></> ) : 
+                                        (
+                                            <Select name='category' defaultValue={product.categoryName}>
+                                                {
+                                                    Object.keys(categories).map((category, i) => <option key={i}>{category}</option> )
+                                                }
+                                            </Select>
+                                        )
+                                    }
                             </Section>
                             
                             {/*  PRECIO  */}
                             <Section>
                                 <label htmlFor='price'>Precio:</label>
-                                <Input name='price' type='number' value={product.price}/>
+                                <Input name='price' type='number' defaultValue={product.price} min='0.00' step='0.01'/>
                             </Section>
 
                             
                             {/*  ACTIVO  */}
-                            <Section>
-                                <label htmlFor='active'>Activo</label>
-                                <input name='active' type='checkbox'/>
-                            </Section>
+                            <label htmlFor='active'>Activo</label>
+                            <input name='active' type='checkbox' defaultChecked={product.active ? 'check' : ''}/>
                             
                             <Button type='submit'>Actualizar</Button>
                         </>
