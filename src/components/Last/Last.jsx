@@ -6,8 +6,17 @@ function Last(props){
     return(
         <Div>
             <h3>Ultimo {props.field} creado:</h3>
-            <p>{props.item.name}</p>
-            <Img src={props.item.image}/>
+            {
+                !props.item ? (
+                    <p>Cargando...</p>
+                ):
+                (
+                    <>
+                    <p>{props.item.name}</p>
+                    <Img src={props.item.image}/>
+                    </>
+                )
+            }
         </Div>
     )
 }

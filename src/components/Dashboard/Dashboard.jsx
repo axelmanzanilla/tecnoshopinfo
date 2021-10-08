@@ -3,16 +3,17 @@ import { useState, useEffect } from 'react';
 import Total from '../Total/Total';
 import Last from '../Last/Last';
 import Panel from '../Panel/Panel';
+import Product from '../ProductComponent/ProductComponent';
 import { Main, LeftPanel, PrincipalPanel, RightPanel, Ul, Li } from './DashboardStyles';
 
 function Dashboard(){
-    const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState({});
-    const [productTotal, setProductTotal] = useState(0);
-    const [userTotal, setUserTotal] = useState(0);
-    const [categoryTotal, setCategoryTotal] = useState(0);
-    const [lastUser, setLastUser] = useState({});
-    const [lastProduct, setLastProduct] = useState({});
+    const [products, setProducts] = useState();
+    const [categories, setCategories] = useState();
+    const [productTotal, setProductTotal] = useState();
+    const [userTotal, setUserTotal] = useState();
+    const [categoryTotal, setCategoryTotal] = useState();
+    const [lastUser, setLastUser] = useState();
+    const [lastProduct, setLastProduct] = useState();
 
     const getUsersData = async function(){
         try {
@@ -100,7 +101,12 @@ function Dashboard(){
                 <h3>Productos</h3>
                 <Ul>
                 {
-                    products.map((product, i) => <li key={i} className='product'><p>{product.id} - {product.name}</p></li>)
+                    !products ? (
+                        <p>Cargando...</p>
+                    ):
+                    (
+                        products.map((product, i) => <Product key={i} id={product.id} name={product.name}></Product>)
+                    )
                 }
                 </Ul>
             </PrincipalPanel>
@@ -110,7 +116,12 @@ function Dashboard(){
                 <h3>Categorías</h3>
                 <Ul>
                 {
-                    Object.keys(categories).map((key, i) => <Li key={i} className='category'><h4>{key}:&nbsp;</h4> {categories[key]}</Li>)
+                    !categories ? (
+                        <p>Cargando...</p>
+                    ):
+                    (
+                        Object.keys(categories).map((key, i) => <Li key={i} className='category'><h4>{key}:&nbsp;</h4> {categories[key]}</Li>)
+                    )
                 }
                 </Ul>
             </RightPanel>

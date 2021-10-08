@@ -6,7 +6,15 @@ function Total(props){
     return(
         <Div>
             <h4>Total de {props.field}:&nbsp;</h4>
-            <p>{props.total}</p>
+            {
+                !props.total ? (
+                    <p>Cargando...</p>
+                ):
+                (
+                    <p>{props.total}</p>
+                )
+                
+            }
         </Div>
     )
 }

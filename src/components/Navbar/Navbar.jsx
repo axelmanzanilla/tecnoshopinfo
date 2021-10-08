@@ -6,7 +6,7 @@ function Navbar(){
         <NavBar>
             <Item path='/'>Dashboard</Item>
             <Item path='/ventas'>Ventas</Item>
-            <Item path='/nuevo-producto'>Crear producto</Item>
+            <Item path='/nuevoproducto'>Crear producto</Item>
         </NavBar>
     )
 }
