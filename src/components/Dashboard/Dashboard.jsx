@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Total from '../Total/Total';
 import Last from '../Last/Last';
 import Panel from '../Panel/Panel';
-import Product from '../ProductComponent/ProductComponent';
+import Product from '../Product/Product';
 import { Main, LeftPanel, PrincipalPanel, RightPanel, Ul, Li } from './DashboardStyles';
 
 function Dashboard(){

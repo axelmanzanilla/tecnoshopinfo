@@ -4,8 +4,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
-import Product from './components/Product/Product';
-import Ventas from './components/Ventas/Ventas';
+import ProductForm from './components/ProductForm/ProductForm';
+import Ventas from './components/Ventas/Ventas';  
 import Navbar from './components/Navbar/Navbar';
 import NewProduct from './components/NewProduct/NewProduct';
 
@@ -15,7 +15,7 @@ ReactDOM.render(
       <Navbar/>
       <Switch>
         <Route exact path='/' component={Dashboard}/>
-        <Route path='/producto/:id' component={Product}/>
+        <Route path='/producto/:id' component={ProductForm}/>
         <Route path='/ventas' component={Ventas}/>
         <Route path='/nuevoproducto' component={NewProduct}/>
       </Switch>

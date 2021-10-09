@@ -1,19 +1,68 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Total from '../Total/Total';
 import Panel from '../Panel/Panel';
-import { Main } from './VentasStyles';
+import ProductImage from '../ProductImage/ProductImage';
+import { BigPanel, TopProducts, Ul } from './VentasStyles';
 
 function Ventas(){
+    const [totalSales, setTotalSales] = useState();
+    const [totalProductsSold, setTotalProductsSold] = useState();
+    const [lastSold, setLastSold] = useState();
+    const [bestSellers, setBestSellers] = useState();
+
+    const getSales = async function(){
+        try {
+            let response = await fetch('https://tecnoshop2.herokuapp.com/api/sales');
+            let data = await response.json();
+            setTotalSales(data.totalSales);
+            setTotalProductsSold(data.totalProductsSold);
+            setLastSold(data.lastSold);
+            setBestSellers(data.bestSellers);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getSales();
+    }, []);
+
     return(
-        <Main>
+        <main>
             <Panel>
-                <h3>Holap</h3>
-                Esto no es un simulacro
+                <Total field='ventas' total={totalSales}/>
+                <Total field='productos vendidos' total={totalProductsSold}/>
             </Panel>
-            <Panel>
-                <h3>Holap</h3>
-            </Panel>
-        </Main>
+            <BigPanel>
+                <TopProducts>
+                    <h3>Últimos productos vendidos</h3>
+                    <Ul>
+                    {
+                        !lastSold ? (
+                            <p>Cargando...</p>
+                        ):
+                        (
+                            lastSold.map((product, i) => <ProductImage key={i} id={product.id} name={product.name} image={product.image}></ProductImage>)
+                        )
+                    }
+                    </Ul>
+                </TopProducts>
+                <TopProducts>
+                    <h3>Productos más vendidos</h3>
+                    <Ul>
+                    {
+                        !bestSellers ? (
+                            <p>Cargando...</p>
+                        ):
+                        (
+                            bestSellers.map((product, i) => <ProductImage key={i} id={product.id} name={product.name} image={product.image}></ProductImage>)
+                        )
+                    }
+                    </Ul>
+                </TopProducts>
+            </BigPanel>
+        </main>
     )
 }
 
