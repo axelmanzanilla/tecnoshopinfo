@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import { Main, Form, Section, Input, TextArea, Select, Button } from './NewProductStyles';
 
-function NewProduct(){
+function NewProduct(props){
     const [categories, setCategories] = useState();
 
     const getCategories = async function(){
@@ -19,9 +19,39 @@ function NewProduct(){
         getCategories();
     }, []);
 
+    const createProduct = async function(product){
+        const response = await fetch('https://tecnoshop2.herokuapp.com/api/products', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        });
+
+        if(response.ok){
+            props.history.push('/')
+        }else{
+            let content = await response.json();
+            console.log(content)
+        }
+    }
+ 
+    const submitHandler = e => {
+        e.preventDefault();
+        let product = {
+            name: document.forms[0].elements['name'].value,
+            description: document.forms[0].elements['description'].value,
+            category: document.forms[0].elements['category'].value,
+            price: document.forms[0].elements['price'].value,
+            active: document.forms[0].elements['active'].checked
+        }
+        createProduct(product);
+    }
+
     return(
         <Main>
-            <Form method='POST'>
+            <Form onSubmit={submitHandler}>
                 {/*  NOMBRE  */}
                 <Section>
                     <label htmlFor='name'>Nombre:</label>
@@ -42,7 +72,7 @@ function NewProduct(){
                             (
                                 <Select name='category'>
                                     {
-                                        Object.keys(categories).map((category, i) => <option key={i}>{category}</option> )
+                                        Object.keys(categories).map((category, i) => <option key={i} value={category}>{category}</option> )
                                     }
                                 </Select>
                             )
