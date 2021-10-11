@@ -2,11 +2,17 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Main, Form, Img, Section, Input, TextArea, Select, Button, FormBorrar, ButtonBorrar } from './ProductFormStyles';
+import Alert from '../Alert/Alert';
 
 function Product(props){
     const [product, setProduct] = useState();
     const [categories, setCategories] = useState();
     const params = useParams();
+    const [alerts, setAlerts] = useState({
+        name: true,
+        description: true,
+        price: true
+    });
 
     useEffect(() => {
         async function getProductData(){
@@ -60,15 +66,44 @@ function Product(props){
 
     const updateProduct = e => {
         e.preventDefault();
-        let body = {
-            id: parseInt(document.forms['update'].elements['id'].value),
-            name: document.forms['update'].elements['name'].value,
-            description: document.forms['update'].elements['description'].value,
-            category: document.forms['update'].elements['category'].value,
-            price: document.forms['update'].elements['price'].value,
-            active: document.forms['update'].elements['active'].checked
+        
+        let errors = false;
+        Object.values(alerts).forEach(alert => {
+            if(alert !== true) errors = true;
+        });
+
+        if(!errors){
+            let body = {
+                id: parseInt(document.forms['update'].elements['id'].value),
+                name: document.forms['update'].elements['name'].value,
+                description: document.forms['update'].elements['description'].value,
+                category: document.forms['update'].elements['category'].value,
+                price: document.forms['update'].elements['price'].value,
+                active: document.forms['update'].elements['active'].checked
+            }
+            callAPI('PUT', body);
         }
-        callAPI('PUT', body);
+    }
+
+    const validateName = function(e){
+        let value = e.target.value;
+        if(value.length === 0) setAlerts({ ...alerts, name: 'empty' });
+        else if(value.length < 5) setAlerts({ ...alerts, name: 'El nombre debe tener 5 caracteres como mínimo' });
+        else setAlerts({ ...alerts, name: true });
+    }
+
+    const validateDescription = function(e){
+        let value = e.target.value;
+        if(value.length === 0) setAlerts({ ...alerts, description: 'empty' });
+        else if(value.length < 20) setAlerts({ ...alerts, description: 'El nombre debe tener 20 caracteres como mínimo' });
+        else setAlerts({ ...alerts, description: true });
+    }
+
+    const validatePrice = function(e){
+        let value = e.target.value;
+        if(value.length === 0) setAlerts({ ...alerts, price: 'empty' });
+        else if(value < 0) setAlerts({ ...alerts, price: 'El nombre debe tener 20 caracteres como mínimo' });
+        else setAlerts({ ...alerts, price: true });
     }
 
     return(
@@ -88,13 +123,15 @@ function Product(props){
                             {/*  NOMBRE  */}
                             <Section>
                                 <label htmlFor='name'>Nombre:</label>
-                                <Input name='name' type='text' defaultValue={product.name}/>
+                                <Input name='name' type='text' defaultValue={product.name} onBlur={validateName}/>
+                                <Alert message={alerts.name === true ? '' : alerts.name}></Alert>
                             </Section>
 
                             {/*  DESCRIPCIÓN  */}
                             <Section>
                                 <label htmlFor='description'>Descripción:</label>
-                                <TextArea name='description' defaultValue={product.description}></TextArea>
+                                <TextArea name='description' defaultValue={product.description} onBlur={validateDescription}></TextArea>
+                                <Alert message={alerts.description === true ? '' : alerts.description}></Alert>
                             </Section>
 
                             {/*  CATEGORÍA  */}
@@ -116,7 +153,8 @@ function Product(props){
                             {/*  PRECIO  */}
                             <Section>
                                 <label htmlFor='price'>Precio:</label>
-                                <Input name='price' type='number' defaultValue={product.price} min='0.00' step='0.01'/>
+                                <Input name='price' type='number' defaultValue={product.price} min='0.00' step='0.01' onBlur={validatePrice}/>
+                                <Alert message={alerts.price === true ? '' : alerts.price}></Alert>
                             </Section>
 
                             
