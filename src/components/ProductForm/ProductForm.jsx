@@ -87,22 +87,22 @@ function Product(props){
 
     const validateName = function(e){
         let value = e.target.value;
-        if(value.length === 0) setAlerts({ ...alerts, name: 'empty' });
-        else if(value.length < 5) setAlerts({ ...alerts, name: 'El nombre debe tener 5 caracteres como mínimo' });
+        if(value.length === 0) setAlerts({ ...alerts, name: 'Debes completar este campo' });
+        else if(value.length < 5) setAlerts({ ...alerts, name: 'Debe tener al menos cinco caracteres' });
         else setAlerts({ ...alerts, name: true });
     }
 
     const validateDescription = function(e){
         let value = e.target.value;
-        if(value.length === 0) setAlerts({ ...alerts, description: 'empty' });
-        else if(value.length < 20) setAlerts({ ...alerts, description: 'El nombre debe tener 20 caracteres como mínimo' });
+        if(value.length === 0) setAlerts({ ...alerts, description: 'Debes completar este campo' });
+        else if(value.length < 20) setAlerts({ ...alerts, description: 'Debe tener al menos veinte caracteres' });
         else setAlerts({ ...alerts, description: true });
     }
 
     const validatePrice = function(e){
         let value = e.target.value;
-        if(value.length === 0) setAlerts({ ...alerts, price: 'empty' });
-        else if(value < 0) setAlerts({ ...alerts, price: 'El nombre debe tener 20 caracteres como mínimo' });
+        if(value.length === 0) setAlerts({ ...alerts, price: 'Debes completar este campo' });
+        else if(value < 0) setAlerts({ ...alerts, price: 'El precio debe ser mayor a cero' });
         else setAlerts({ ...alerts, price: true });
     }
 
