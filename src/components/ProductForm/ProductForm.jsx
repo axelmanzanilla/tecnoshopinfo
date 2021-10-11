@@ -17,7 +17,7 @@ function Product(props){
     useEffect(() => {
         async function getProductData(){
             try {
-                let response = await fetch(`http://tecnoshop2.herokuapp.com/api/products/${params.id}`);
+                let response = await fetch(`http://tecnoshop.herokuapp.com/api/products/${params.id}`);
                 let data = await response.json();
                 setProduct(data);
             } catch (error) {
@@ -28,7 +28,7 @@ function Product(props){
 
         async function getAllCategories(){
             try {
-                let response = await fetch('https://tecnoshop2.herokuapp.com/api/products');
+                let response = await fetch('https://tecnoshop.herokuapp.com/api/products');
                 let data = await response.json();
                 setCategories(data.countByCategory);
             } catch (error) {
@@ -39,7 +39,7 @@ function Product(props){
     }, [params]);
 
     const callAPI = async function(method, body){
-        const response = await fetch('https://tecnoshop2.herokuapp.com/api/products', {
+        const response = await fetch('https://tecnoshop.herokuapp.com/api/products', {
             method,
             headers: {
                 'Accept': 'application/json',

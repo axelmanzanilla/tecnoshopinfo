@@ -13,7 +13,7 @@ function NewProduct(props){
 
     const getCategories = async function(){
         try {
-            let response = await fetch('https://tecnoshop2.herokuapp.com/api/products');
+            let response = await fetch('https://tecnoshop.herokuapp.com/api/products');
             let data = await response.json();
             setCategories(data.countByCategory);
         } catch (error) {
@@ -26,7 +26,7 @@ function NewProduct(props){
     }, []);
 
     const createProduct = async function(product){
-        const response = await fetch('https://tecnoshop2.herokuapp.com/api/products', {
+        const response = await fetch('https://tecnoshop.herokuapp.com/api/products', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

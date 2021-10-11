@@ -17,7 +17,7 @@ function Dashboard(){
 
     const getUsersData = async function(){
         try {
-            let response = await fetch('https://tecnoshop2.herokuapp.com/api/users');
+            let response = await fetch('https://tecnoshop.herokuapp.com/api/users');
             let data = await response.json();
             setUserTotal(data.count);
         } catch (error) {
@@ -27,7 +27,7 @@ function Dashboard(){
 
     const getProductsData = async function(){
         try {
-            let response = await fetch('https://tecnoshop2.herokuapp.com/api/products');
+            let response = await fetch('https://tecnoshop.herokuapp.com/api/products');
             let data = await response.json();
             setProducts(data.products);
             setProductTotal(data.count);
@@ -40,7 +40,7 @@ function Dashboard(){
 
     const getLastUser = async function(){
         try {
-            let usersList = await fetch('https://tecnoshop2.herokuapp.com/api/users?order=ASC');
+            let usersList = await fetch('https://tecnoshop.herokuapp.com/api/users?order=ASC');
             let usersListJSON = await usersList.json();
             let response = await fetch(usersListJSON.users[0].detail);
             let data = await response.json();
@@ -57,7 +57,7 @@ function Dashboard(){
 
     const getLastProduct = async function(){
         try {
-            let productList = await fetch('https://tecnoshop2.herokuapp.com/api/products?order=DESC');
+            let productList = await fetch('https://tecnoshop.herokuapp.com/api/products?order=DESC');
             let productListJSON = await productList.json();
             let response = await fetch(productListJSON.products[0].detail);
             let data = await response.json();

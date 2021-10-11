@@ -13,7 +13,7 @@ function Ventas(){
 
     const getSales = async function(){
         try {
-            let response = await fetch('https://tecnoshop2.herokuapp.com/api/sales');
+            let response = await fetch('https://tecnoshop.herokuapp.com/api/sales');
             let data = await response.json();
             setTotalSales(data.totalSales);
             setTotalProductsSold(data.totalProductsSold);
